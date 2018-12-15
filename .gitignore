@@ -24,11 +24,5 @@ yarn-error.log*
 
 # editors
 *.swp
-nest-cli.json
 nodemon-debug.json
-nodemon.json
-package.json
-package-lock.json
-tsconfig.*
-tslint.json
 .prettierrc
