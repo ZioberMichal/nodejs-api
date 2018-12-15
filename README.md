@@ -34,6 +34,9 @@ $ npm run test
 # e2e tests
 $ npm run test:e2e
 
+#e2e only one
+$npm run test:e2e:one test/user.e2e-spec.ts
+
 # test coverage
 $ npm run test:cov
 ```
