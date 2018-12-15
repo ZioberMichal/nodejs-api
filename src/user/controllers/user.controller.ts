@@ -1,4 +1,5 @@
 import {Body, Controller, Get, Post, Query, Request} from '@nestjs/common';
+import {UserRegisterRequestDto, UserRegisterResponseDto} from '../dto/';
 
 @Controller('user')
 export class UserController {
@@ -8,12 +9,23 @@ export class UserController {
         return {
             id: 1,
             name: 'Michal',
-            query: query,
+            query,
         };
     }
 
     @Post()
     postUser(@Body() body: any) {
         return body;
+    }
+
+    @Post('register')
+    register(@Body() data: UserRegisterRequestDto): UserRegisterResponseDto {
+        return {
+            user: {
+                id: 1,
+                name: 'Michal',
+                email: 'email@email.com',
+            },
+        };
     }
 }

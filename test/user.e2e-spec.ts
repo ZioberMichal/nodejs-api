@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import { UserModule } from '../src/user/user.module';
+import {UserRegisterRequestDto, UserRegisterResponseDto} from '../src/user/dto';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -44,4 +45,27 @@ describe('UserController (e2e)', () => {
               expect(res.body).toMatchObject(resBody);
           });
     });
+
+  const userRegisterUrl = '/user/register';
+  it(userRegisterUrl + ' (POST)', () => {
+      const req: UserRegisterRequestDto = {
+          name: 'Michal',
+          password: 'password',
+          email: 'email@email.com',
+      };
+      const response: UserRegisterResponseDto = {
+          user: {
+              id: 1,
+              name: 'Michal',
+              email: 'email@email.com',
+          },
+      };
+      return request(app.getHttpServer())
+          .post(userRegisterUrl)
+          .send(req)
+          .expect(201)
+          .then(res => {
+              expect(res.body).toMatchObject(response);
+          });
+  });
 });
