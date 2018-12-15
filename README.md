@@ -38,6 +38,15 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## License
-
-  Nest is [MIT licensed](LICENSE).
+## Steps
+Q: How to generate new module?  
+A:
+```bash
+# generate user module
+nest generate module user
+```
+Q: How to generate controller?
+A:
+```bash
+nest g controller user/controllers/user --flat
+```
