@@ -1,25 +1,35 @@
+import { ApiModelProperty } from '@nestjs/swagger';
 import {UserModel} from '../../models/models';
 
-export interface UserRegisterRequestDto {
+export class UserRegisterRequestDto {
+    @ApiModelProperty()
     name: string;
+    @ApiModelProperty()
     password: string;
+    @ApiModelProperty()
     email: string;
 }
 
-export interface UserRegisterResponseDto {
+export class UserRegisterResponseDto {
+    @ApiModelProperty()
     user: UserModel;
 }
 
-export interface UserLoginRequestDto {
+export class UserLoginRequestDto {
+    @ApiModelProperty()
     email: string;
+    @ApiModelProperty()
     password: string;
 }
 
-export interface UserLoginResponseDto {
+export class UserLoginResponseDto {
+    @ApiModelProperty()
     user: UserModel;
+    @ApiModelProperty()
     token: string;
 }
 
-export interface TokenPayload {
+export class TokenPayload {
+    @ApiModelProperty()
     user: UserModel;
 }

@@ -71,3 +71,8 @@ A:
 ```bash
 $npm i jsonwebtoken
 ```
+Q: How to install swagger?
+A:
+```bash
+$npm i @nestjs/swagger
+```
