@@ -1,8 +1,13 @@
-import {Body, Controller, Get, Post, Query, Request} from '@nestjs/common';
-import {UserRegisterRequestDto, UserRegisterResponseDto} from '../dto/';
+import {Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, NotFoundException, Post, Query, Request} from '@nestjs/common';
+import {UserLoginRequestDto, UserLoginResponseDto, UserRegisterRequestDto, UserRegisterResponseDto} from '../dto/';
+import {UserModel} from '../../models/models';
+import {UserService} from '../service/user.service';
 
 @Controller('user')
 export class UserController {
+
+    constructor(private userService: UserService) {
+    }
 
     @Get()
     getUser(@Query() query: any, @Request() req) {
@@ -23,28 +28,31 @@ export class UserController {
         return '<form action="/user/register" method="post"><input type="text" name="name" placeholder="Name"><input type="text" name="email" placeholder="Email"><input type="submit"></form>';
     }
 
+    private user: UserModel;
+
     @Post('register')
     async register(@Body() data: UserRegisterRequestDto): Promise<UserRegisterResponseDto> {
-        const user = {
-            user: {
-                id: 1,
-                name: data.name,
-                email: data.email,
-            },
+        this.user = {
+            id: 1,
+            name: data.name,
+            email: data.email,
+            password: data.password,
         };
 
-        return delay(2, user);
+        return {user: this.user};
     }
-}
 
-function delay(time = 2, data: UserRegisterResponseDto): Promise<UserRegisterResponseDto> {
-    return new Promise((resolve, reject) => {
-        if (time > 2) {
-            reject('TOO LONG!');
-        } else {
-            setTimeout(() => {
-                resolve(data);
-            }, time * 1000);
+    @Post('login')
+    login(@Body() data: UserLoginRequestDto): UserLoginResponseDto {
+        if (!this.user) {
+            throw new NotFoundException('user not found!');
         }
-    });
+        if (this.user.password !== data.password || this.user.email !== data.email) {
+            throw new ForbiddenException('Wrong!');
+        }
+        return {
+            user: this.user,
+            token: this.userService.tokenSign({user: this.user}),
+        };
+    }
 }

@@ -9,3 +9,17 @@ export interface UserRegisterRequestDto {
 export interface UserRegisterResponseDto {
     user: UserModel;
 }
+
+export interface UserLoginRequestDto {
+    email: string;
+    password: string;
+}
+
+export interface UserLoginResponseDto {
+    user: UserModel;
+    token: string;
+}
+
+export interface TokenPayload {
+    user: UserModel;
+}

@@ -1,8 +1,8 @@
-import { INestApplication } from '@nestjs/common';
+import {HttpStatus, INestApplication} from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import { UserModule } from '../src/user/user.module';
-import {UserRegisterRequestDto, UserRegisterResponseDto} from '../src/user/dto';
+import {UserLoginRequestDto, UserLoginResponseDto, UserRegisterRequestDto, UserRegisterResponseDto} from '../src/user/dto';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -67,5 +67,40 @@ describe('UserController (e2e)', () => {
           .then(res => {
               expect(res.body).toMatchObject(response);
           });
+  });
+
+  const loginUrl = '/user/login';
+  it(loginUrl + ' (POST)', () => {
+      const req: UserLoginRequestDto = {
+          password: 'password',
+          email: 'email@email.com',
+      };
+      const response: UserLoginResponseDto = {
+          user: {
+              id: 1,
+              name: 'Michal',
+              email: 'email@email.com',
+          },
+          token: expect.any(String),
+      };
+
+      return request(app.getHttpServer())
+          .post(loginUrl)
+          .send(req)
+          .expect(201)
+          .then(res => {
+              expect(res.body).toMatchObject(response);
+          });
+  });
+  it(loginUrl + ' FORBIDDEN (POST)', () => {
+      const req: UserLoginRequestDto = {
+          password: 'wrong',
+          email: 'email@email.com',
+      };
+
+      return request(app.getHttpServer())
+          .post(loginUrl)
+          .send(req)
+          .expect(HttpStatus.FORBIDDEN);
   });
 });

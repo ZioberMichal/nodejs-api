@@ -53,9 +53,21 @@ A:
 ```bash
 nest g controller user/controllers/user --flat
 ```
-Q: How to run with other port  
+
+Q: How to generate service?
+```bash
+$nest g service user/service/user --flat
+```
+
+Q: How to run with other port?  
 A:
 ```bash
 #see changes in main.ts
 PORT=3003 npm run start:dev
+```
+
+Q: How to install JSON WEB Token?  
+A:
+```bash
+$npm i jsonwebtoken
 ```
