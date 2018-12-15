@@ -45,12 +45,12 @@ A:
 # generate user module
 nest generate module user
 ```
-Q: How to generate controller?
+Q: How to generate controller?  
 A:
 ```bash
 nest g controller user/controllers/user --flat
 ```
-Q: How to run with other port
+Q: How to run with other port  
 A:
 ```bash
 #see changes in main.ts
