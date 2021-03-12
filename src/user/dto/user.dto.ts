@@ -1,35 +1,35 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import {UserModel} from '../../models/models';
 
 export class UserRegisterRequestDto {
-    @ApiModelProperty()
+    @ApiProperty()
     name: string;
-    @ApiModelProperty()
+    @ApiProperty()
     password: string;
-    @ApiModelProperty()
+    @ApiProperty()
     email: string;
 }
 
 export class UserRegisterResponseDto {
-    @ApiModelProperty()
+    @ApiProperty()
     user: UserModel;
 }
 
 export class UserLoginRequestDto {
-    @ApiModelProperty()
+    @ApiProperty()
     email: string;
-    @ApiModelProperty()
+    @ApiProperty()
     password: string;
 }
 
 export class UserLoginResponseDto {
-    @ApiModelProperty()
+    @ApiProperty()
     user: UserModel;
-    @ApiModelProperty()
+    @ApiProperty()
     token: string;
 }
 
 export class TokenPayload {
-    @ApiModelProperty()
+    @ApiProperty()
     user: UserModel;
 }
